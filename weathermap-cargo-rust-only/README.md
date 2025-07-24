@@ -10,6 +10,19 @@ Create a new Rust project:
 cargo new weathermap-cargo-rust-only
 ```
 
+## Required Environment Variables
+
+To use this program, create a `.env` file in the project root with the following variables:
+
+```
+WEATHER_API_KEY=
+LATITUDE=
+LONGITUDE=
+URL_WEATHER=
+```
+
+Fill in your OpenWeatherMap API key, latitude, longitude, and the weather API URL.
+
 ## OpenWeatherMap API
 
 - [API Documentation](https://openweathermap.org/current)
@@ -30,4 +43,44 @@ cargo new weathermap-cargo-rust-only
     https://api.openweathermap.org/data/2.5/weather?q={city name},{country code}&appid={API key}
     ```
 
+
 Replace `{API key}` with your OpenWeatherMap API key.
+
+## Rust Naming Conventions
+
+- **Variables and functions**: `snake_case`
+- **Types, structs, enums, traits**: `PascalCase` (a.k.a. `UpperCamelCase`)
+- **Constants and statics**: `SCREAMING_SNAKE_CASE`
+
+### Examples
+
+```rust
+// variable
+let weather_data = 42;
+
+// function
+fn fetch_weather(city_name: &str) -> WeatherData {
+    // ...
+}
+
+// struct
+struct WeatherData {
+    temperature: f32,
+    humidity: u8,
+}
+
+// enum
+enum WeatherCondition {
+    Clear,
+    Rain,
+    Snow,
+}
+
+// trait
+trait Displayable {
+    fn display(&self);
+}
+
+// constant
+const DEFAULT_CITY: &str = "London";
+```
