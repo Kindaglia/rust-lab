@@ -1,0 +1,20 @@
+meta {
+  name: by_cityname
+  type: http
+  seq: 2
+}
+
+get {
+  url: https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  q: {city name}
+  appid: {API key}
+}
+
+settings {
+  encodeUrl: true
+}
