@@ -1,10 +1,9 @@
 use dotenv::dotenv;
 use std::env;
+use std::collections::HashMap;
+
 #[derive(Debug)]
-// #[allow(dead_code)] // for remvoe warning 
-
-
-
+// #[allow(dead_code)] // for remove warning
 struct ApiValues {
     weather_api_key: String,
     longitude: String,
@@ -22,7 +21,24 @@ fn init_data() -> ApiValues {
     }
 }
 
-fn main() {
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let data = init_data();
-    println!("{data:#?}");// print  “object-like”
+    println!("{data:#?}"); // print "object-like"
+
+    let client = reqwest::Client::new();
+    let resp = client
+        .get(&data.url)
+        .query(&[
+            ("lat", &data.latitude),
+            ("lon", &data.longitude),
+            ("appid", &data.weather_api_key),
+        ])
+        .send()
+        .await?
+        .json::<HashMap<String, serde_json::Value>>()
+        .await?;
+
+    println!("{resp:#?}");
+    Ok(())
 }
