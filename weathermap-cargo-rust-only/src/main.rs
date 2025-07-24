@@ -21,8 +21,8 @@ fn init_data() -> ApiValues {
     }
 }
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+
+async fn get_weathe_from_env() -> Result<(), Box<dyn std::error::Error>> {
     let data = init_data();
     println!("{data:#?}"); // print "object-like"
 
@@ -41,4 +41,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("{resp:#?}");
     Ok(())
+}
+
+#[tokio::main]
+async fn main() {
+    match get_weathe_from_env().await {
+        Ok(_) => println!("Richiesta completata con successo!"),
+        Err(e) => println!("Errore: {}", e),
+    }
 }
