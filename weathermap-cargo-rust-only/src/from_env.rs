@@ -1,3 +1,4 @@
+use serde_json::Value;
 use std::collections::HashMap;
 use std::env;
 
@@ -20,11 +21,11 @@ impl ApiValues {
     }
 }
 
-pub async fn get_weathe_from_env() -> Result<(), Box<dyn std::error::Error>> {
+pub async fn get_weathe_from_env() -> Result<HashMap<String, Value>, Box<dyn std::error::Error>> {
     let data = ApiValues::new()?;
-    println!("{data:#?}"); // print "object-like"
-
+    // Create a new HTTP client
     let client = reqwest::Client::new();
+    // Send GET request to the weather API with the query parameters
     let resp = client
         .get(&data.url)
         .query(&[
@@ -33,10 +34,8 @@ pub async fn get_weathe_from_env() -> Result<(), Box<dyn std::error::Error>> {
             ("appid", &data.weather_api_key),
         ])
         .send()
-        .await?
-        .json::<HashMap<String, serde_json::Value>>()
+        .await? // Await the HTTP response
+        .json::<HashMap<String, Value>>() // Parse the JSON into a HashMap
         .await?;
-
-    println!("{resp:#?}");
-    Ok(())
+    Ok(resp) // Return the parsed response
 }
