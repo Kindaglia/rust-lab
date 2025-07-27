@@ -1,5 +1,7 @@
+use serde_json::Value;
 use std::collections::HashMap;
 use std::env;
+use std::error::Error;
 
 #[derive(Debug)]
 pub struct ApiValues {
@@ -10,20 +12,37 @@ pub struct ApiValues {
 }
 
 impl ApiValues {
-    pub fn new() -> Result<Self, Box<dyn std::error::Error>> {
+    pub fn new() -> Result<Self, Box<dyn Error>> {
+        let weather_api_key = match env::var("WEATHER_API_KEY") {
+            Ok(val) if !val.trim().is_empty() => val,
+            _ => return Err("Missing or empty env var: WEATHER_API_KEY".into()),
+        };
+
+        let longitude = match env::var("LONGITUDE") {
+            Ok(val) if !val.trim().is_empty() => val,
+            _ => return Err("Missing or empty env var: LONGITUDE".into()),
+        };
+
+        let latitude = match env::var("LATITUDE") {
+            Ok(val) if !val.trim().is_empty() => val,
+            _ => return Err("Missing or empty env var: LATITUDE".into()),
+        };
+
+        let url = match env::var("URL_WEATHER") {
+            Ok(val) if !val.trim().is_empty() => val,
+            _ => return Err("Missing or empty env var: URL_WEATHER".into()),
+        };
+
         Ok(ApiValues {
-            weather_api_key: env::var("WEATHER_API_KEY")?,
-            longitude: env::var("LONGITUDE")?,
-            latitude: env::var("LATITUDE")?,
-            url: env::var("URL_WEATHER")?,
+            weather_api_key,
+            longitude,
+            latitude,
+            url,
         })
     }
 }
-
-pub async fn get_weathe_from_env() -> Result<(), Box<dyn std::error::Error>> {
+pub async fn get_weather_from_env() -> Result<Value, Box<dyn Error>> {
     let data = ApiValues::new()?;
-    println!("{data:#?}"); // print "object-like"
-
     let client = reqwest::Client::new();
     let resp = client
         .get(&data.url)
@@ -34,9 +53,8 @@ pub async fn get_weathe_from_env() -> Result<(), Box<dyn std::error::Error>> {
         ])
         .send()
         .await?
-        .json::<HashMap<String, serde_json::Value>>()
+        .json::<Value>() // Instead of HashMap, parse directly as Value
         .await?;
 
-    println!("{resp:#?}");
-    Ok(())
+    Ok(resp)
 }
