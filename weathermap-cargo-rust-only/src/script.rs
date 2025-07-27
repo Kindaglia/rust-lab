@@ -1,14 +1,6 @@
 use crate::from_env;
+use crate::models::WeatherSummary;
 use serde_json::Value;
-
-#[derive(Debug)]
-struct WeatherSummary {
-    city: String,
-    temperature: f64,
-    humidity: u64,
-    condition: String,
-    wind_speed: f64,
-}
 
 pub async fn test_utils_function() {
     match from_env::get_weather_from_env().await {

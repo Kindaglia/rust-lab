@@ -1,15 +1,7 @@
+use crate::models::ApiValues;
 use serde_json::Value;
-use std::collections::HashMap;
 use std::env;
 use std::error::Error;
-
-#[derive(Debug)]
-pub struct ApiValues {
-    weather_api_key: String,
-    longitude: String,
-    latitude: String,
-    url: String,
-}
 
 impl ApiValues {
     pub fn new() -> Result<Self, Box<dyn Error>> {
