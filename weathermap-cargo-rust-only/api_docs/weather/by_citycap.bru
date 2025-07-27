@@ -1,0 +1,20 @@
+meta {
+  name: by_citycap
+  type: http
+  seq: 4
+}
+
+get {
+  url: https://api.openweathermap.org/data/2.5/weather?q={city name},{country code}&appid={API key}
+  body: none
+  auth: inherit
+}
+
+params:query {
+  q: {city name},{country code}
+  appid: {API key}
+}
+
+settings {
+  encodeUrl: true
+}
