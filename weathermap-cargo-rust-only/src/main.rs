@@ -9,11 +9,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     loop {
         // simple menu
-        println!("\nMenu:");
-        println!("1) Weather from ENV");
-        println!("2) Weather from INPUT");
-        println!("3) Exit, bye ");
-        print!("Select: ");
+        const BANNER: &str = r#"
+        ┌─────────────────────────────┐
+        │  1  🌍  From ENV            │
+        │  2  ⌨️  From INPUT          │
+        │  3  👋  Exit – bye!         │
+        └─────────────────────────────┘
+        Select: "#;
+
+        print!("{BANNER}");
         std::io::Write::flush(&mut std::io::stdout())?;
 
         let mut choice = String::new();
