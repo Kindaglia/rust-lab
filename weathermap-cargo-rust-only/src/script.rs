@@ -1,15 +1,7 @@
-use crate::from_env;
 use crate::models::WeatherSummary;
 use serde_json::Value;
 
-pub async fn test_utils_function() {
-    match from_env::get_weather_from_env().await {
-        Ok(weather_data) => make_weather_summary(&weather_data),
-        Err(e) => println!("❌ Error: {}", e),
-    }
-}
-
-fn make_weather_summary(data: &Value) {
+pub fn make_weather_summary(data: &Value) {
     // Create  WeatherSummary from JSON
     let weather_summary = WeatherSummary {
         city: data["name"].as_str().unwrap_or("Unknown").to_string(),
@@ -31,12 +23,3 @@ fn make_weather_summary(data: &Value) {
         weather_summary.wind_speed,
     );
 }
-
-/*
-* pub async fn test_utils_function() -> Result<(), Box<dyn std::error::Error>> {
-    let weather_data = from_env::get_weather_from_env().await?;
-    make_weather_summary(&weather_data);
-    Ok(())
-}
-
-*/

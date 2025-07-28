@@ -14,3 +14,9 @@ pub struct WeatherSummary {
     pub condition: String,
     pub wind_speed: f64,
 }
+
+#[derive(Debug)]
+pub struct ApiValuesForInput {
+    pub weather_api_key: String,
+    pub url: String,
+}
