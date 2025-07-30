@@ -10,16 +10,9 @@ impl MainWindow {
         let window = ApplicationWindow::builder()
             .application(app)
             .title("First GTK Program")
-            .default_width(350)
-            .default_height(70)
+            .default_width(360)
+            .default_height(640)
             .build();
-
-        let button = Button::with_label("Click me!");
-        button.connect_clicked(|_| {
-            eprintln!("Clicked!");
-        });
-
-        window.set_child(Some(&button));
 
         Self { window }
     }
