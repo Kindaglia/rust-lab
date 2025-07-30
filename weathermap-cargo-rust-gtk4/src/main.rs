@@ -1,30 +1,25 @@
+mod ui;
+
 use gtk::prelude::*;
-use gtk::{Application, ApplicationWindow, Settings, glib};
+use gtk::{Application, Settings, glib};
 use gtk4 as gtk;
+use ui::MainWindow;
 
 fn main() -> glib::ExitCode {
-    let app = Application::builder()
-        .application_id("org.example.HelloWorld")
+    let application = Application::builder()
+        .application_id("com.example.FirstGtkApp")
         .build();
 
-    app.connect_activate(|app| {
-        // Get the default settings
-        let settings = Settings::default().expect("Failed to get settings");
+    application.connect_activate(|app| {
+        // Enable dark mode using GTK settings
+        if let Some(settings) = Settings::default() {
+            settings.set_gtk_application_prefer_dark_theme(true);
+        }
 
-        // Enable dark mode
-        settings.set_gtk_application_prefer_dark_theme(true);
-
-        // We create the main window.
-        let window = ApplicationWindow::builder()
-            .application(app)
-            .default_width(320)
-            .default_height(200)
-            .title("Hello, World!")
-            .build();
-
-        // Show the window.
+        // Create and show the main window
+        let window = MainWindow::new(app);
         window.present();
     });
 
-    app.run()
+    application.run()
 }
