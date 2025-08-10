@@ -1,3 +1,3 @@
-mod main_window;
+mod main_window_ui;
 
-pub use main_window::MainWindow;
+pub use main_window_ui::MainWindow;

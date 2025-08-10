@@ -1,0 +1,7 @@
+.small-button {
+    min-width: 18px;
+    min-height: 18px;     /* Reduce height */
+    padding: 0;           /* Remove extra space */
+    font-size: 10px;      /* Smaller text */
+    margin: 0;            /* Remove default margin */
+}
