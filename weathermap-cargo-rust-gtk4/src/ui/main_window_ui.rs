@@ -1,7 +1,7 @@
 // Import necessary GTK4 components and traits
 use gtk4::gdk::Display; // For display handling
-use gtk4::prelude::*; // Brings in essential GTK traits
-use gtk4::{Application, ApplicationWindow, Box, Button, CssProvider}; // Core GTK widgets
+use gtk4::{Application, ApplicationWindow, Box, Button, CssProvider};
+use gtk4::{Label, prelude::*}; // Brings in essential GTK traits // Core GTK widgets
 
 // Define the main window structure
 pub struct MainWindow {
@@ -21,7 +21,7 @@ impl MainWindow {
 
         // Load CSS styling from external file
         let provider = CssProvider::new();
-        provider.load_from_path("style.css"); // Load CSS from file
+        provider.load_from_path("src/ui/style.css");
 
         // Apply CSS styles to the entire application
         if let Some(display) = Display::default() {
@@ -38,9 +38,20 @@ impl MainWindow {
         box_container.set_halign(gtk4::Align::Center); // Center horizontally
         box_container.set_valign(gtk4::Align::Center); // Center vertically
 
-        // Create a button with label
-        let button = Button::with_label("Welcome");
-        button.add_css_class("small-button"); // Apply custom CSS class
+        // Create a welcome label with specific styling
+        let welcome_label = Label::builder()
+            .label("Welcome to Weather App") // Set the text content
+            .css_classes(["welcome-title"]) // Apply CSS class for styling
+            .build();
+        // Add the welcome label to our main container
+        box_container.append(&welcome_label);
+
+        // Create a button with text
+        let button = Button::with_label("Check Weather");
+        // Apply CSS styling to the button
+        button.add_css_class("small-button");
+        // Add some space above the button
+        button.set_margin_top(12);
 
         // Set up button click handler
         button.connect_clicked(|_| {
