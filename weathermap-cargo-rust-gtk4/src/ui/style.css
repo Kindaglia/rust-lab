@@ -1,0 +1,21 @@
+/* src/ui/style.css */
+.welcome-title {
+    font-size: 24px;
+}
+
+.weather-title {
+    font-size: 24px;
+}
+
+.weather-info {
+    font-size: 16px;
+}
+
+.small-button {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.arrow-back-button{
+    width: fit-content;
+}
