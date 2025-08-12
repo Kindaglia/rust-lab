@@ -8,6 +8,7 @@ A simple weather application built in Rust with GTK4, designed to run on Linux, 
 
 ```bash
 git clone https://github.com/Kindaglia/rust-lab.git
+cd rust-lab
 cd weathermap-cargo-rust-gtk4
 ```
 
