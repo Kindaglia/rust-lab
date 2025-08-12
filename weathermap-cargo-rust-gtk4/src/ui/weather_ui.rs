@@ -1,6 +1,6 @@
 // weather_ui.rs
 use gtk4::prelude::*;
-use gtk4::{Box, Button, CssProvider, Label, gdk::Display};
+use gtk4::{Box, Button, Label};
 
 pub struct WeatherView {
     container: Box,

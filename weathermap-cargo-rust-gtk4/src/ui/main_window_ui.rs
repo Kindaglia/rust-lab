@@ -6,7 +6,6 @@ use crate::ui::weather_ui::WeatherView; // Importa WeatherView
 // Define the main window structure
 pub struct MainWindow {
     window: ApplicationWindow,
-    stack: Stack,
 }
 
 impl MainWindow {
@@ -81,7 +80,7 @@ impl MainWindow {
         // Set the stack as the main window's child
         window.set_child(Some(&stack));
         
-        Self { window, stack }
+        Self { window }
     }
     
     // Method to show the window
