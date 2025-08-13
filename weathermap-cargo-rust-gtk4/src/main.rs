@@ -1,4 +1,5 @@
 mod ui;
+mod weather;
 
 use gtk::prelude::*;
 use gtk::{Application, Settings, glib};

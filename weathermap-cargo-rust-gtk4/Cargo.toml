@@ -5,3 +5,6 @@ edition = "2024"
 
 [dependencies]
 gtk4 = "0.10.0"
+serde_json = "1.0.141"
+reqwest = { version = "0.12", features = ["json"] }
+tokio = { version = "1", features = ["full"] }
